@@ -34,6 +34,12 @@
       margin: 0;
       padding: 0;
       height: 100%;
+      background-color: #DBDBDB;
+      background-image: url('/image/background.png');
+      background-size: 125%;
+      background-position: center -150px;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
     }
   
     .create-account {
@@ -45,7 +51,7 @@
       width: 410px;
       max-width: 100%;
       margin: 0 auto;
-      margin-top: 5px;
+      margin-top: -17px;
       position: relative;
     }
   

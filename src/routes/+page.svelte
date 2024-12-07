@@ -17,6 +17,11 @@
   :global(body, html) {
     margin: 0;
     padding: 0;
+    background-image: url('/image/background.png');
+    background-size: 125%;
+    background-position: center -150px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     height: 100%;
     font-family: Arial, sans-serif;
   }
