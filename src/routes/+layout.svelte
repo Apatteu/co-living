@@ -3,8 +3,7 @@
 	import "../app.css";
 
 	let isMenuOpen = false;
-	let pagesWithSidebar = ["/profile", "/apartment", "/request", "/settings"];
-	let pagesWithNavbar = ["/", "/signup", "/about", "/contact"];
+	let pagesWithNavbar = ["/", "/about", "/contact", "/profile", "/apartment"];
 
 	function toggleMenu() {
 		isMenuOpen = !isMenuOpen;
@@ -34,18 +33,6 @@
 			<a href="/">Apartment</a>
 			<a href="/about">About</a>
 			<a href="/contact">Contact</a>
-		</div>
-	</div>
-{/if}
-
-{#if $page.url.pathname && pagesWithSidebar.includes($page.url.pathname)}
-	<div class="sidebar">
-		<a href="/profile"><i class="fas fa-user"></i>My Profile</a>
-		<a href="/apartment"><i class="fas fa-building"></i>Apartments</a>
-		<a href="/request"><i class="fas fa-handshake"></i>Request</a>
-		<div class="bottom-links">
-			<a href="/settings"><i class="fa-solid fa-gear"></i>Settings</a>
-			<a href="/" on:click={logOut} class="logout-link" aria-label="Log out"><i class="fas fa-sign-out-alt"></i> Log out</a>
 		</div>
 	</div>
 {/if}
@@ -126,63 +113,6 @@
 		justify-content: center;
 	}
 
-	.sidebar {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 150px;
-		background-color: #515739;
-		padding: 1rem;
-		box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.sidebar a {
-		color: #ffffff;
-		text-decoration: none;
-		padding: 0.75rem;
-		font-size: 0.9rem;
-		border-radius: 5px;
-		display: flex;
-		align-items: center;
-		transition: background-color 0.3s, box-shadow 0.3s;
-	}
-
-	.sidebar a:hover {
-		background-color: #7a8357;
-		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-	}
-
-	.sidebar a i {
-		margin-right: 10px;
-	}
-
-	.bottom-links {
-		margin-top: auto;
-	}
-
-	.logout-link {
-		color: #ffffff;
-		text-decoration: none;
-		padding: 0.75rem;
-		font-size: 0.9rem;
-		border-radius: 5px;
-		display: flex;
-		align-items: center;
-		transition: background-color 0.3s, box-shadow 0.3s;
-	}
-
-	.logout-link i {
-		margin-right: 10px;
-	}
-
-	.logout-link:hover {
-		background-color: #7a8357;
-		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-	}
-
 	@media (max-width: 768px) {
 		.navbar {
 			flex-direction: column;
@@ -209,34 +139,6 @@
 			width: 100%;
 			text-align: left;
 			padding: 1rem;
-		}
-
-		.sidebar {
-			position: fixed;
-			top: 0;
-			left: -200px;
-			width: 200px;
-			transition: left 0.3s ease-in-out;
-		}
-
-		.sidebar.open {
-			left: 0;
-		}
-
-		.sidebar a {
-			font-size: 1rem;
-		}
-
-		.sidebar-toggle-btn {
-			display: block;
-			position: absolute;
-			top: 1rem;
-			left: 1rem;
-			background-color: #515739;
-			color: white;
-			padding: 0.5rem 1rem;
-			border: none;
-			cursor: pointer;
 		}
 	}
 
