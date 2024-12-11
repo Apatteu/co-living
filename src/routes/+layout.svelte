@@ -3,8 +3,14 @@
 	import "../app.css";
 
 	let isMenuOpen = false;
-	let pagesWithSidebar = ["/profile", "/apartment", "/request", "/settings"];
-	let pagesWithNavbar = ["/", "/signup", "/about", "/contact"];
+
+	// Define the paths for each navbar type
+	const navbar1Pages = ["/", "/about", "/contact", "/profile"];
+	const navbar2Pages = ["/apartment", "/transaction", "/maintenance"];
+
+	// Reactive statements to check which navbar to show based on current page
+	$: isNavbar1 = navbar1Pages.includes($page.url.pathname);
+	$: isNavbar2 = navbar2Pages.includes($page.url.pathname);
 
 	function toggleMenu() {
 		isMenuOpen = !isMenuOpen;
@@ -22,7 +28,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </svelte:head>
 
-{#if $page.url.pathname && pagesWithNavbar.includes($page.url.pathname)}
+<!-- Navbar 1 - For pages in navbar1Pages -->
+{#if isNavbar1}
 	<div class="navbar">
 		<a href="/" class="mr-auto font-bold logo">Apateu</a>
 		<button class="burger" on:click={toggleMenu} aria-label="Toggle navigation" aria-expanded={isMenuOpen}>
@@ -31,21 +38,27 @@
 			<div class="line"></div>
 		</button>
 		<div class={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
-			<a href="/">Apartment</a>
+			<a href="/apartment">Apartment</a>
 			<a href="/about">About</a>
 			<a href="/contact">Contact</a>
 		</div>
 	</div>
 {/if}
 
-{#if $page.url.pathname && pagesWithSidebar.includes($page.url.pathname)}
-	<div class="sidebar">
-		<a href="/profile"><i class="fas fa-user"></i>My Profile</a>
-		<a href="/apartment"><i class="fas fa-building"></i>Apartments</a>
-		<a href="/request"><i class="fas fa-handshake"></i>Request</a>
-		<div class="bottom-links">
-			<a href="/settings"><i class="fa-solid fa-gear"></i>Settings</a>
-			<a href="/" on:click={logOut} class="logout-link" aria-label="Log out"><i class="fas fa-sign-out-alt"></i> Log out</a>
+<!-- Navbar 2 - For pages in navbar2Pages -->
+{#if isNavbar2}
+	<div class="navbar">
+		<a href="/" class="mr-auto font-bold logo">Apateu</a>
+		<button class="burger" on:click={toggleMenu} aria-label="Toggle navigation" aria-expanded={isMenuOpen}>
+			<div class="line"></div>
+			<div class="line"></div>
+			<div class="line"></div>
+		</button>
+		<div class={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
+			<a href="/units">Units</a>
+			<a href="/transaction">Transaction</a>
+			<a href="/maintenance">Maintenance</a>
+			<button on:click={logOut}>Logout</button>
 		</div>
 	</div>
 {/if}
@@ -59,7 +72,7 @@
 		font-family: 'Poppins', sans-serif;
 		margin: 0;
 		padding: 0;
-		background-color: #DBDBDB;
+		background-color: #dbdbdb;
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
@@ -80,23 +93,24 @@
 	.navbar a {
 		color: #ffffff;
 		text-decoration: none;
-		padding: 0.25rem 0.75rem;
-		font-size: 0.9rem;
-		transition: transform 0.2s, color 0.2s, background-color 0.3s, box-shadow 0.3s;
-		border-radius: 5px;
-	}
-
-	.navbar .logo {
-		font-size: 1.2rem;
-		font-weight: bold;
-		transition: transform 0.2s, color 0.2s;
+		padding: 0.75rem 1.5rem;
+		font-size: 1rem;
+		border-radius: 0.5rem;
+		display: inline-block;
+		transition: transform 0.2s, background-color 0.2s, box-shadow 0.3s;
 	}
 
 	.navbar a:hover {
-		color: #ffffff;
-		transform: scale(1.05);
 		background-color: #7a8357;
+		color: #ffffff;
 		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+		transform: translateY(-3px);
+	}
+
+	.navbar .logo {
+		font-size: 1.5rem;
+		font-weight: bold;
+		transition: transform 0.2s, color 0.2s;
 	}
 
 	.burger {
@@ -126,63 +140,6 @@
 		justify-content: center;
 	}
 
-	.sidebar {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 150px;
-		background-color: #515739;
-		padding: 1rem;
-		box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.sidebar a {
-		color: #ffffff;
-		text-decoration: none;
-		padding: 0.75rem;
-		font-size: 0.9rem;
-		border-radius: 5px;
-		display: flex;
-		align-items: center;
-		transition: background-color 0.3s, box-shadow 0.3s;
-	}
-
-	.sidebar a:hover {
-		background-color: #7a8357;
-		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-	}
-
-	.sidebar a i {
-		margin-right: 10px;
-	}
-
-	.bottom-links {
-		margin-top: auto;
-	}
-
-	.logout-link {
-		color: #ffffff;
-		text-decoration: none;
-		padding: 0.75rem;
-		font-size: 0.9rem;
-		border-radius: 5px;
-		display: flex;
-		align-items: center;
-		transition: background-color 0.3s, box-shadow 0.3s;
-	}
-
-	.logout-link i {
-		margin-right: 10px;
-	}
-
-	.logout-link:hover {
-		background-color: #7a8357;
-		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-	}
-
 	@media (max-width: 768px) {
 		.navbar {
 			flex-direction: column;
@@ -209,34 +166,6 @@
 			width: 100%;
 			text-align: left;
 			padding: 1rem;
-		}
-
-		.sidebar {
-			position: fixed;
-			top: 0;
-			left: -200px;
-			width: 200px;
-			transition: left 0.3s ease-in-out;
-		}
-
-		.sidebar.open {
-			left: 0;
-		}
-
-		.sidebar a {
-			font-size: 1rem;
-		}
-
-		.sidebar-toggle-btn {
-			display: block;
-			position: absolute;
-			top: 1rem;
-			left: 1rem;
-			background-color: #515739;
-			color: white;
-			padding: 0.5rem 1rem;
-			border: none;
-			cursor: pointer;
 		}
 	}
 
