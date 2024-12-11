@@ -1,124 +1,168 @@
-<script lang="ts">
-    import { Carousel } from 'flowbite-svelte';
+<script>
+  import { Card, Button, Carousel, Toggle } from 'flowbite-svelte';
+  import { ArrowRightOutline } from 'flowbite-svelte-icons';
+  import { SearchOutline } from 'flowbite-svelte-icons';
   
-    // Define the image type
-    type Image = {
-      src: string;
-      alt: string;
-    };
+  // State for card orientation (Reverse toggle)
+  let vCard = false;
   
-    // Define your image paths directly
-    let images: Image[] = [
-      { src: '/image/background.png', alt: 'Image 1' },
-      { src: '/image/avatar.jpg', alt: 'Image 2' },
-      { src: '/image/image3.jpg', alt: 'Image 3' }
-    ];
-  
-    // Initialize the image variable (optional, not used now)
-    let image: Image | undefined;
+
+  // Sample image data for the carousel
+  const carouselImages = [
+    { alt: 'Cosmic timetraveler', src: '/image/2.webp', title: 'Cosmic' },
+    { alt: 'Cityscape', src: '/image/1.jpg', title: 'Cityscape' },
+    { alt: 'Modern Building', src: '/image/3.webp', title: 'Modern' },
+  ];
+
+  // Apartment card data
+  const apartments = [
+{
+  title: 'Noteworthy technology acquisitions 2021',
+  description: 'Here are the biggest enterprise technology acquisitions of 2021 so far.',
+  price: '₱8,000 – ₱15,000',
+  img: '/image/building.jpg',
+  rating: 4  // Added rating property
+},
+{
+  title: 'Luxury Apartment in the City Center',
+  description: 'A beautiful apartment located in the heart of the city with modern amenities.',
+  price: '₱20,000 – ₱25,000',
+  img: '/image/building.jpg',
+  rating: 5  // Added rating property
+},
+{
+  title: 'Cozy Studio with Scenic Views',
+  description: 'A cozy and compact studio apartment with breathtaking views of the skyline.',
+  price: '₱10,000 – ₱12,000',
+  img: '/image/building.jpg',
+  rating: 3  // Added rating property
+},
+{
+  title: 'Spacious 2-Bedroom Apartment',
+  description: 'Spacious and well-lit 2-bedroom apartment perfect for a small family.',
+  price: '₱15,000 – ₱18,000',
+  img: '/image/building.jpg',
+  rating: 4  // Added rating property
+},
+{
+  title: 'Modern Loft with Private Balcony',
+  description: 'A sleek modern loft with a private balcony overlooking the park.',
+  price: '₱18,000 – ₱22,000',
+  img: '/image/building.jpg',
+  rating: 5  // Added rating property
+},
+{
+  title: 'Quiet Apartment with Large Garden',
+  description: 'A peaceful apartment with a large garden, perfect for nature lovers.',
+  price: '₱12,000 – ₱16,000',
+  img: '/image/building.jpg',
+  rating: 2  // Added rating property
+}
+];
+
+
 </script>
 
 <style>
-    :global(html, body) {
-      margin: 0;
-      padding: 0;
-      height: 100%; /* Ensure the body takes the full height of the viewport */
-      overflow: hidden; /* Disable scrolling on the entire page */
-    }
-  
-    .dashboard {
-      display: grid;
-      grid-template-areas:
-        "summary calendar"
-        "booking calendar";
-      grid-template-columns: 3.5fr 2fr;
-      grid-template-rows: auto 1fr;
-      gap: 1rem;
-      height: 100vh;
-      padding: 1rem;
-    }
-  
-    .box {
-      background-color: #ECEBEB; /* White background for containers */
-      border-radius: 0.5rem;
-      padding: 1rem;
-      height: 83%; /* Maintain original height */
-    }
-  
-    .summary {
-      grid-area: summary;
-      padding-top: -3.8rem; /* Adjusted top padding */
-      padding-right: 1rem;
-      padding-bottom: 2rem;
-      padding-left: 2rem;
-      height: auto; /* Allow the height to adjust based on content */
-      min-height: 270px; /* Set a minimum height to avoid collapsing */
-      overflow: visible; /* Ensure overflow content is visible */
-    }
+  .search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0rem;
+    margin: 1rem 0;
+    position: relative;
+  }
 
-    .carousel-text {
-      margin-top: 1rem; /* Space between the carousel and the text */
-    }
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+  }
 
-    .carousel-text h1 {
-      font-size: 2rem; /* Set the font size for h1 */
-      font-weight: bold; /* Optional: Makes the heading bold */
-      text-align: left; /* Aligns h1 to the left */
-    }
-
-    .carousel-text p {
-      text-align: justify; /* Justifies the paragraph text */
-    }
-
-    .carousel-text button {
-      margin-top: 3rem; /* Space between paragraph and button */
-      padding: 10px 20px;
-      font-size: 1rem;
-      background-color: #ff6a00; /* Green background color */
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .carousel-text button:hover {
-      background-color: #e65b00; /* Darker green on hover */
-    }
-  
-    .calendar {
-      grid-area: calendar;
-      padding: 2rem;
-    }
+  .carousel-container {
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+  }
 </style>
 
-<div class="dashboard">
-  <!-- Carousel directly in the .summary without the white box -->
-  <div class="summary">
-    <Carousel {images} let:Indicators let:Controls>
-      <Controls />
-      <Indicators />
-    </Carousel>
-
-    <!-- Add h1 and p below the carousel -->
-    <div class="carousel-text">
-      <h1>Elizabeth's Apartment</h1>
-      <p>Binangkal Recipe
-        Ingredients:
-        1 1/2 cup all purpose flour
-        3/4 cup powdered milk
-        1 tablespoon baking powder
-        1/3 cup sugar
-        1 tablespoon melted butter (or margarine)
-        1/4 cup evaporated milk
-        1 piece egg
-        1/2 cup sesame seeds
-        Oil for deep frying
-      </p>
-      <!-- Add a button aligned to the left -->
-      <button>Book</button>
-    </div>
+<!-- Search Bar -->
+<div class="search-bar flex items-center">
+  <div class="relative">
+    <select class="form-select px-4 py-2 border rounded">
+      <option selected>All categories</option>
+      <option>Room Type</option>
+      <option>Preferred Roommates</option>
+      <option>House Rules</option>
+    </select>
   </div>
-
-  <!-- Visible calendar div -->
-  <div class="box calendar"></div>
+  <input
+    type="text"
+    placeholder="Search Mockups, Logos, Design Themes..."
+    class="form-input px-4 py-2 border rounded w-1/2"
+  />
+  <button class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 flex justify-center items-center">
+    <SearchOutline class="w-5 h-5" />
+  </button>
 </div>
+
+
+<!-- Carousel -->
+<div class="carousel-container">
+  <Carousel images={carouselImages} let:Controls>
+    <Controls />
+  </Carousel>
+</div>
+
+
+<!-- Apartment Cards -->
+<div class="cards-container">
+  {#each apartments as apartment}
+    <Card img={apartment.img} reverse={vCard}>
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        {apartment.title}
+      </h5>
+      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-tight">
+        {apartment.description}
+      </p>
+      
+      <!-- Star Rating -->
+      <div class="flex items-center mb-2">
+        {#each Array(5).fill(0) as _, i}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill={i < apartment.rating ? "gold" : "none"}
+            viewBox="0 0 24 24"
+            stroke="gold"
+            class="w-5 h-5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+            />
+          </svg>
+        {/each}
+      </div>
+
+      <div class="flex items-center space-x-4">
+          <p class="text-sm font-semibold text-green-700">{apartment.price}</p>  <!-- Adjusted text size here -->
+          <Button style="background-color: blue; color: white;">
+            Read more
+            <ArrowRightOutline class="w-6 h-6 ms-2 text-white" />
+          </Button>
+        </div>
+        
+        
+        
+        
+    </Card>
+  {/each}
+</div>
+
+
+<!-- Toggle Reverse -->
+<Toggle bind:checked={vCard} class="italic dark:text-gray-500 mt-4">
+  Reverse Card Layout
+</Toggle>
