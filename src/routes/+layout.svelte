@@ -5,7 +5,7 @@
 	let isMenuOpen = false;
   
 	const navbar1Pages = ["/", "/about", "/contact", "/profile"];
-	const navbar2Pages = ["/apartment"];
+	const navbar2Pages = ["/apartment", "/book"];
   
 	$: isNavbar1 = navbar1Pages.includes($page.url.pathname);
 	$: isNavbar2 = navbar2Pages.includes($page.url.pathname);

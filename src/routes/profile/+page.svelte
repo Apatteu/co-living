@@ -7,7 +7,7 @@
       margin: 0;
       padding: 0;
       height: 100%; /* Ensure the body takes the full height of the viewport */
-      overflow: hidden; /* Disable scrolling on the entire page */
+      
   }
 
   .dashboard {

@@ -9,9 +9,9 @@
   
     // Define your image paths directly
     let images: Image[] = [
-      { src: '/image/background.png', alt: 'Image 1' },
-      { src: '/image/avatar.jpg', alt: 'Image 2' },
-      { src: '/image/image3.jpg', alt: 'Image 3' }
+      { src: '/image/A.jpg', alt: 'Image 1' },
+      { src: '/image/B.jpg', alt: 'Image 2' },
+      { src: '/image/C.jpg', alt: 'Image 3' }
     ];
   
     // Initialize the image variable (optional, not used now)
@@ -102,17 +102,9 @@
     <!-- Add h1 and p below the carousel -->
     <div class="carousel-text">
       <h1>Elizabeth's Apartment</h1>
-      <p>Binangkal Recipe
-        Ingredients:
-        1 1/2 cup all purpose flour
-        3/4 cup powdered milk
-        1 tablespoon baking powder
-        1/3 cup sugar
-        1 tablespoon melted butter (or margarine)
-        1/4 cup evaporated milk
-        1 piece egg
-        1/2 cup sesame seeds
-        Oil for deep frying
+      <p>
+        Spacious and modern 4 bedroom apartment in SBMA, featuring a fully-equipped kitchen, air conditioning, and ample natural light. 
+        Conveniently located near Ayala Malls. Ideal for professionals or small families.
       </p>
       <!-- Add a button aligned to the left -->
       <button>Book</button>

@@ -9,14 +9,14 @@
       title: 'Noteworthy technology acquisitions 2021',
       description: 'Here are the biggest enterprise technology acquisitions of 2021 so far.',
       price: '₱8,000 – ₱15,000',
-      img: '/image/building.jpg',
+      img: '/image/B1.jpg',
       rating: 4
     },
     {
       title: 'Luxury Apartment in the City Center',
       description: 'A beautiful apartment located in the heart of the city with modern amenities.',
       price: '₱20,000 – ₱25,000',
-      img: '/image/building.jpg',
+      img: '/image/B2.jpg',
       rating: 5
     },
     {
@@ -80,7 +80,7 @@
   </div>
   <input
     type="text"
-    placeholder="Search Mockups, Logos, Design Themes..."
+    placeholder="Search Units..."
     class="form-input px-4 py-2 border rounded w-1/2"
   />
   <button class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 flex justify-center items-center">
