@@ -254,7 +254,7 @@
   max-width: 1000px;  /* Maximum width */
   height: 400px;  /* Set a height */
   margin: 0 auto;  /* Center the carousel */
-  margin-bottom: -3rem;  /* Add a little margin at the bottom */
+  margin-bottom: -1rem;  /* Add a little margin at the bottom */
 }
 </style>
 
