@@ -4,8 +4,8 @@
 	
 	let isMenuOpen = false;
 	
-	const navbar1Pages = ["/", "/about", "/contact", "/profile"];
-	const navbar2Pages = ["/apartment", "/book"];
+	const navbar1Pages = ["/", "/about", "/contact", "/signup"];
+	const navbar2Pages = ["/apartment", "/book", "/profile"];
 	
 	$: isNavbar1 = navbar1Pages.includes($page.url.pathname);
 	$: isNavbar2 = navbar2Pages.includes($page.url.pathname);
@@ -18,7 +18,7 @@
 	  window.location.href = '/';
 	}
   </script>
-  
+	
   <svelte:head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,45 +26,47 @@
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   </svelte:head>
-  
-  {#if isNavbar1}
-	<div class="navbar">
-	  <a href="/" class="mr-auto font-bold logo">Apateu</a>
-	  <button class="burger" on:click={toggleMenu} aria-label="Toggle navigation" aria-expanded={isMenuOpen}>
-		<div class="line"></div>
-		<div class="line"></div>
-		<div class="line"></div>
-	  </button>
-	  <div class={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
-		<a href="/apartment"><i class="fas fa-building"></i> Apartments</a>
-		<a href="/about"><i class="fas fa-info-circle"></i> About</a>
-		<a href="/contact"><i class="fas fa-phone-alt"></i> Contact</a>
-	  </div>
-	</div>
-  {/if}
-  
-  {#if isNavbar2}
-	<div class="navbar">
-	  <a href="/" class="mr-auto font-bold logo">Apateu</a>
-	  <button class="burger" on:click={toggleMenu} aria-label="Toggle navigation" aria-expanded={isMenuOpen}>
-		<div class="line"></div>
-		<div class="line"></div>
-		<div class="line"></div>
-	  </button>
-	  <div class={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
-		<a href="/apartment"><i class="fas fa-building"></i> Apartments</a>
-		<a href="/profile" class="profile-link"><i class="fas fa-user"></i> Profile</a>
-		
-		<button on:click={logOut} class="logout-button">
-		  <i class="fas fa-sign-out-alt"></i> Logout
+	
+  <!-- Conditional class applied to wrapper div based on the active navbar -->
+  <div class={isNavbar1 ? 'main-wrapper navbar1-active' : ''}>
+	{#if isNavbar1}
+	  <div class="navbar">
+		<a href="/" class="mr-auto font-bold logo">Apateu</a>
+		<button class="burger" on:click={toggleMenu} aria-label="Toggle navigation" aria-expanded={isMenuOpen}>
+		  <div class="line"></div>
+		  <div class="line"></div>
+		  <div class="line"></div>
 		</button>
+		<div class={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
+		  <a href="/apartment"><i class="fas fa-building"></i> Apartments</a>
+		  <a href="/about"><i class="fas fa-info-circle"></i> About</a>
+		  <a href="/contact"><i class="fas fa-phone-alt"></i> Contact</a>
+		</div>
 	  </div>
-	</div>
-  {/if}
+	{/if}
   
-  <main class="main-content">
-	<slot></slot>
-  </main>
+	{#if isNavbar2}
+	  <div class="navbar">
+		<a href="/" class="mr-auto font-bold logo">Apateu</a>
+		<button class="burger" on:click={toggleMenu} aria-label="Toggle navigation" aria-expanded={isMenuOpen}>
+		  <div class="line"></div>
+		  <div class="line"></div>
+		  <div class="line"></div>
+		</button>
+		<div class={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
+		  <a href="/apartment"><i class="fas fa-building"></i> Apartments</a>
+		  <a href="/profile" class="profile-link"><i class="fas fa-user"></i> Profile</a>
+		  <button on:click={logOut} class="logout-button">
+			<i class="fas fa-sign-out-alt"></i> Logout
+		  </button>
+		</div>
+	  </div>
+	{/if}
+  
+	<main class="main-content">
+	  <slot></slot>
+	</main>
+  </div>
   
   <style>
 	:global(body) {
@@ -78,13 +80,22 @@
 	  overflow-x: hidden;  /* Prevent horizontal scrolling */
 	}
   
+	.main-wrapper.navbar1-active {
+	  background-image: url('/image/background.png'); /* Path to your background image */
+	  background-size: 135%; /* Adjust size to 135% of original width and height */
+	  background-position: top -180px center; /* Push the background image higher by 50px */
+	  background-repeat: no-repeat; /* Prevent image from repeating */
+	  background-attachment: fixed; /* Optional: Fix the background on scroll */
+	  padding-bottom: 2rem; /* Ensures the content is not hidden behind the navbar */
+	}
+  
 	.navbar {
 	  display: flex;
 	  align-items: center;
 	  justify-content: space-between;
 	  flex-wrap: wrap;
 	  background-color: #515739;
-	  padding: 0.5rem 1.5rem;
+	  padding: 0.3rem 1rem;  /* Reduced padding for smaller navbar */
 	  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	  width: 100%;
 	  position: relative;
@@ -94,8 +105,8 @@
 	.navbar a {
 	  color: #ffffff;
 	  text-decoration: none;
-	  padding: 0.75rem 1.5rem;
-	  font-size: 1rem;
+	  padding: 0.5rem 1rem;  /* Reduced padding */
+	  font-size: 0.9rem;  /* Reduced font size */
 	  border-radius: 0.5rem;
 	  display: inline-block;
 	  transition: transform 0.2s, background-color 0.2s, box-shadow 0.3s;
@@ -112,7 +123,7 @@
 	}
   
 	.navbar .logo {
-	  font-size: 1.5rem;
+	  font-size: 1.3rem;  /* Reduced logo size */
 	  font-weight: bold;
 	  transition: transform 0.2s, color 0.2s;
 	}
@@ -134,9 +145,9 @@
 	  background: none;
 	  border: none;
 	  color: #ffffff;
-	  font-size: 1rem;
+	  font-size: 0.9rem;  /* Reduced font size */
 	  cursor: pointer;
-	  padding: 0.75rem 1.5rem;
+	  padding: 0.5rem 1rem;  /* Reduced padding */
 	  transition: transform 0.2s, background-color 0.2s, box-shadow 0.3s;
 	}
   
@@ -154,12 +165,12 @@
 	  background: none;
 	  border: none;
 	  position: absolute;
-	  top: 0.5rem;
-	  right: 1.5rem;
+	  top: 0.3rem;  /* Adjusted to make the burger smaller */
+	  right: 1rem;  /* Adjusted position */
 	}
   
 	.line {
-	  width: 20px;
+	  width: 18px;  /* Reduced line width */
 	  height: 2px;
 	  background-color: #ffffff;
 	  margin: 3px 0;
@@ -206,7 +217,7 @@
   
 	@media (max-width: 480px) {
 	  .navbar .logo {
-		font-size: 1.1rem;
+		font-size: 1.1rem;  /* Reduced logo size for smaller screens */
 	  }
   
 	  .main-content {

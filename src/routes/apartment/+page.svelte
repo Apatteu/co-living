@@ -235,11 +235,12 @@
   }
 
   .cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    padding: 2rem;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 1rem;  /* Reduce the padding here */
+  margin-top: -1rem;  /* Reduce the space above the apartment cards */
+}
 
   .card-footer {
     display: flex;
@@ -249,11 +250,12 @@
 
   /* Carousel styling */
   .carousel-container {
-    width: 100%;  /* Adjust the width of the carousel */
-    max-width: 1000px;  /* Maximum width */
-    height: 400px;  /* Set a height */
-    margin: 0 auto;  /* Center the carousel */
-  }
+  width: 100%;  /* Adjust the width of the carousel */
+  max-width: 1000px;  /* Maximum width */
+  height: 400px;  /* Set a height */
+  margin: 0 auto;  /* Center the carousel */
+  margin-bottom: -3rem;  /* Add a little margin at the bottom */
+}
 </style>
 
 <!-- Search Bar -->
