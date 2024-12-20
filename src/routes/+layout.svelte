@@ -1,19 +1,19 @@
 <script>
 	import { page } from '$app/stores';
 	import "../app.css";
-  
+	
 	let isMenuOpen = false;
-  
+	
 	const navbar1Pages = ["/", "/about", "/contact", "/profile"];
 	const navbar2Pages = ["/apartment", "/book"];
-  
+	
 	$: isNavbar1 = navbar1Pages.includes($page.url.pathname);
 	$: isNavbar2 = navbar2Pages.includes($page.url.pathname);
-  
+	
 	function toggleMenu() {
 	  isMenuOpen = !isMenuOpen;
 	}
-  
+	
 	function logOut() {
 	  window.location.href = '/';
 	}
@@ -36,9 +36,9 @@
 		<div class="line"></div>
 	  </button>
 	  <div class={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
-		<a href="/apartment">Apartment</a>
-		<a href="/about">About</a>
-		<a href="/contact">Contact</a>
+		<a href="/apartment"><i class="fas fa-building"></i> Apartments</a>
+		<a href="/about"><i class="fas fa-info-circle"></i> About</a>
+		<a href="/contact"><i class="fas fa-phone-alt"></i> Contact</a>
 	  </div>
 	</div>
   {/if}
@@ -52,11 +52,8 @@
 		<div class="line"></div>
 	  </button>
 	  <div class={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
-		<a href="/apartment">Apartments</a>
-		<a href="/profile" class="profile-link">
-		  <img src="/image/avatar.jpg" alt="Avatar" class="avatar-icon" />
-		  <span>Profile</span>
-		</a>
+		<a href="/apartment"><i class="fas fa-building"></i> Apartments</a>
+		<a href="/profile" class="profile-link"><i class="fas fa-user"></i> Profile</a>
 		
 		<button on:click={logOut} class="logout-button">
 		  <i class="fas fa-sign-out-alt"></i> Logout
@@ -102,6 +99,9 @@
 	  border-radius: 0.5rem;
 	  display: inline-block;
 	  transition: transform 0.2s, background-color 0.2s, box-shadow 0.3s;
+	  display: flex;
+	  align-items: center;
+	  gap: 0.5rem; /* Space between icon and text */
 	}
   
 	.navbar a:hover {
@@ -130,13 +130,6 @@
 	  gap: 0.5rem;
 	}
   
-	.avatar-icon {
-	  width: 24px;
-	  height: 24px;
-	  border-radius: 50%;
-	  vertical-align: middle;
-	}
-  
 	.logout-button {
 	  background: none;
 	  border: none;
@@ -149,6 +142,7 @@
   
 	.logout-button:hover {
 	  background-color: #7a8357;
+	  border-radius: 7px;
 	  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 	  transform: translateY(-3px);
 	}
